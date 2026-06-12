@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhishGuard AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div class="logo-text">
+                <h2>PhishGuard AI</h2>
+            </div>
+        </div>
+
+        <div class="nav-actions">
+
+            <button id="historyBtn" class="nav-btn">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                History
+            </button>
+
+            <button id="themeToggle" class="nav-btn">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+        </div>
+
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard">
+
+        <!-- Left Side -->
+        <section class="left-panel">
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+
+                <h1>
+                    Detect Phishing.
+                    <span>Stay Safe.</span>
+                </h1>
+
+                <p>
+                    Analyze URLs and identify phishing threats
+                    using advanced security checks.
+                </p>
+
+                <!-- Search Box -->
+                <div class="scan-box">
+
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-link"></i>
+
+                        <input
+                            type="text"
+                            id="urlInput"
+                            placeholder="Enter URL to scan (e.g., https://example.com)"
+                        >
+                    </div>
+
+                    <button id="scanBtn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Scan URL
+                    </button>
+
+                </div>
+
+                <div class="privacy-note">
+                    <i class="fa-solid fa-shield"></i>
+                    We never store or share your data.
+                </div>
+
+            </div>
+
+            <!-- Scan Result -->
+            <div class="card result-card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-crosshairs"></i>
+                    <h3>Scan Result</h3>
+                </div>
+
+                <div class="result-container">
+
+                    <!-- Risk Circle -->
+                    <div class="risk-circle">
+
+                        <div class="circle-inner">
+
+                            <h2 id="riskScore">--</h2>
+
+                            <span>/100</span>
+
+                            <p>Risk Score</p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Result Details -->
+                    <div class="result-details">
+
+                        <div class="detail-block">
+
+                            <label>Status</label>
+
+                            <h2 id="statusText">--</h2>
+
+                        </div>
+
+                        <div class="detail-block">
+
+                            <label>Analysis</label>
+
+                            <p id="analysisText">
+                                Enter a URL and click Scan.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- URL Info -->
+                <div class="info-grid">
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-globe"></i>
+                        <h4>URL</h4>
+                        <p id="urlDisplay">--</p>
+                    </div>
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-lock"></i>
+                        <h4>Protocol</h4>
+                        <p id="protocolDisplay">--</p>
+                    </div>
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <h4>Scan Time</h4>
+                        <p id="scanTime">--</p>
+                    </div>
+
+                    <div class="info-card">
+                        <i class="fa-solid fa-shield"></i>
+                        <h4>Checks</h4>
+                        <p>5+</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Security Analysis -->
+            <div class="card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-shield-virus"></i>
+                    <h3>Security Analysis</h3>
+                </div>
+
+                <div id="analysisList" class="analysis-list">
+
+                    <div class="analysis-empty">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <p>No scan performed yet.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h3>Quick Security Tips</h3>
+                </div>
+
+                <div class="tips-grid">
+
+                    <div class="tip-card">
+                        <i class="fa-solid fa-link"></i>
+                        <h4>Check URL</h4>
+                        <p>Verify domains carefully.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <i class="fa-solid fa-lock"></i>
+                        <h4>Use HTTPS</h4>
+                        <p>Look for secure connections.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <i class="fa-solid fa-user-secret"></i>
+                        <h4>Protect Data</h4>
+                        <p>Never share passwords.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h4>Stay Alert</h4>
+                        <p>Trust your instincts.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Right Side -->
+        <aside class="right-panel">
+
+            <!-- Statistics -->
+            <div class="card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <h3>Security Overview</h3>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <h2 id="totalScans">0</h2>
+                        <span>Total Scans</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="safeCount">0</h2>
+                        <span>Safe</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="warningCount">0</h2>
+                        <span>Warning</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <h2 id="dangerCount">0</h2>
+                        <span>Danger</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- History -->
+            <div class="card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-list"></i>
+                    <h3>Scan History</h3>
+                </div>
+
+                <div id="historyContainer">
+
+                    <div class="history-empty">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                        <p>No history yet</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- About -->
+            <div class="card">
+
+                <div class="card-title">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <h3>About</h3>
+                </div>
+
+                <p class="about-text">
+                    PhishGuard AI analyzes URLs using multiple
+                    security indicators to detect phishing threats.
+                </p>
+
+                <div class="about-footer">
+                    Built with ❤️ for a safer internet.
+                </div>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <footer>
+        © 2026 PhishGuard AI | Cyber Security Project
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
