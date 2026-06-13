@@ -63,7 +63,7 @@ def health():
 
     return jsonify({
         "status": "online",
-        "project": "PhishGuard AI"
+        "project": "Phishing URL Detector"
     })
 
 @app.route("/history")

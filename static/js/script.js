@@ -1,5 +1,5 @@
 // =====================================
-// PHISHGUARD AI
+// Phishing URL Detector
 // SCRIPT.JS
 // =====================================
 
@@ -523,7 +523,7 @@ Time: ${scanTime.textContent}
 function exportTXT(){
 
     const report = `
-PHISHGUARD AI REPORT
+Phishing URL Detector REPORT
 
 URL:
 ${urlDisplay.textContent}
