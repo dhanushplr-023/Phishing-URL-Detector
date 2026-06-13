@@ -8,7 +8,8 @@
 const urlInput = document.getElementById("urlInput");
 const scanBtn = document.getElementById("scanBtn");
 const themeToggle = document.getElementById("themeToggle");
-
+const historyBtn =
+document.getElementById("historyBtn");
 const riskScore = document.getElementById("riskScore");
 const statusText = document.getElementById("statusText");
 const analysisText = document.getElementById("analysisText");
@@ -36,6 +37,22 @@ const THEME_KEY = "phishguard_theme";
 // LOAD APP
 // =====================================
 
+historyBtn.addEventListener(
+    "click",
+    () => {
+
+        const historySection =
+            document.getElementById(
+                "historyContainer"
+            );
+
+        historySection.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+);
+
 window.addEventListener("DOMContentLoaded", () => {
     loadTheme();
     renderHistory();
@@ -46,23 +63,46 @@ window.addEventListener("DOMContentLoaded", () => {
 // THEME TOGGLE
 // =====================================
 
-themeToggle.addEventListener("click", () => {
+themeToggle.addEventListener(
+    "click",
+    () => {
 
-    document.body.classList.toggle("light-mode");
+        document.body.classList.toggle(
+            "light-mode"
+        );
 
-    const theme = document.body.classList.contains("light-mode")
-        ? "light"
-        : "dark";
+        const light =
+            document.body.classList.contains(
+                "light-mode"
+            );
 
-    localStorage.setItem(THEME_KEY, theme);
-});
+        themeToggle.innerHTML =
+            light
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
 
-function loadTheme() {
+        localStorage.setItem(
+            THEME_KEY,
+            light ? "light" : "dark"
+        );
+    }
+);
 
-    const savedTheme = localStorage.getItem(THEME_KEY);
+function loadTheme(){
+
+    const savedTheme =
+        localStorage.getItem(
+            THEME_KEY
+        );
 
     if(savedTheme === "light"){
-        document.body.classList.add("light-mode");
+
+        document.body.classList.add(
+            "light-mode"
+        );
+
+        themeToggle.innerHTML =
+            '<i class="fa-solid fa-sun"></i>';
     }
 }
 
@@ -91,7 +131,7 @@ function isValidURL(url){
 // MAIN SCAN
 // =====================================
 
-function scanURL(){
+async function scanURL(){
 
     const url = urlInput.value.trim();
 
@@ -105,15 +145,70 @@ function scanURL(){
         return;
     }
 
-    const result = analyzeURL(url);
+    try{
 
-    updateUI(url,result);
+        scanBtn.innerHTML =
+            "Scanning...";
 
-    saveHistory(url,result);
+        const response =
+            await fetch("/scan",{
 
-    renderHistory();
+                method:"POST",
 
-    updateStats();
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+                    url:url
+                })
+            });
+
+        const data =
+            await response.json();
+
+        if(!data.success){
+
+            showAlert(
+                data.message
+            );
+
+            return;
+        }
+
+        const result =
+            data.result;
+
+        updateUI(
+            url,
+            result
+        );
+
+        saveHistory(
+            url,
+            result
+        );
+
+        renderHistory();
+
+        updateStats();
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showAlert(
+            "Server Error"
+        );
+    }
+
+    finally{
+
+        scanBtn.innerHTML =
+            "Scan URL";
+    }
 }
 
 // =====================================

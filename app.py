@@ -40,6 +40,11 @@ def scan():
             }), 400
 
         result = analyze_url(url)
+        save_scan(
+            url,
+            result["score"],
+            result["status"]
+        )
 
         return jsonify({
             "success": True,
